@@ -7,14 +7,6 @@
   pointer-events: none;
 }
 
-.navbar {
-  font-size: 18px;
-}
-
-.home {
-  margin-right: 50px;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -43,4 +35,19 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.navbar {
+  font-size: 18px;
+}
+
+.home {
+  margin-right: 50px;
+}
+
+.main-bg {
+  height: 400px;
+  background-image: url("./img/bg.png");
+  background-size: cover;
+  background-position: center;
 }
