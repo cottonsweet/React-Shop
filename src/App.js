@@ -49,11 +49,25 @@ function App() {
           <Route path="location" element={<div>위치정보 !</div>} />
         </Route>
 
+        <Route path="/event" element={<EvnetPage />}>
+          <Route path="one" element={<p>첫 주문시 양배추즙 서비스</p>} />
+          <Route path="two" element={<p>생일기념 쿠폰받기</p>} />
+        </Route>
+
         <Route path="*" element={<div>404 없는 페이지야 !</div>} />
       </Routes>
     </div>
   );
 }
+
+const EvnetPage = () => {
+  return (
+    <div>
+      <h2>오늘의 이벤트 !!!</h2>
+      <Outlet></Outlet>
+    </div>
+  );
+};
 
 const About = () => {
   return (
