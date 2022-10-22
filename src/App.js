@@ -6,7 +6,7 @@ import data from "./data.js";
 import DetailItem from "./routes/detail.js";
 
 function App() {
-  const [shoes] = useState(data);
+  const [shoes, setShoes] = useState(data);
   const navigate = useNavigate();
 
   return (
@@ -38,11 +38,33 @@ function App() {
                     return <Itemlist shoes={shoes[i]} link={i}></Itemlist>;
                   })}
                 </div>
+                <button
+                  onClick={() => {
+                    let copy = [...shoes];
+                    console.log(copy);
+                    copy.sort((a, b) => {
+                      let x = a.title.toLowerCase;
+                      let y = b.title.toLowerCase;
+                      if (x < y) {
+                        return -1;
+                      }
+                      if (x > y) {
+                        return 1;
+                      }
+                      return 0;
+                    });
+                    console.log(copy);
+                    setShoes(copy);
+                  }}
+                >
+                  상품 정렬
+                </button>
               </div>
             </>
           }
         />
-        <Route path="/detail" element={<DetailItem />} />
+
+        <Route path="/detail/:id" element={<DetailItem shoes={shoes} />} />
 
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>멤버 !</div>} />
