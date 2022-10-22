@@ -1,9 +1,11 @@
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useState } from "react";
 
 const YelloBtn = styled.button`
   background: ${(props) => props.color};
-  color: ${(props) => (props.color == "blue" ? "white" : "black")};
+  color: ${(props) => (props.color === "blue" ? "white" : "black")};
   padding: 10px;
 `;
 
@@ -12,15 +14,35 @@ const Box = styled.div`
   padding: 20px;
 `;
 
-const Btn = styled.button(YelloBtn)``;
-
 const DetailItem = (props) => {
   const { id } = useParams();
+  const [count, setCount] = useState(0);
+  const [alert, setAlert] = useState(true);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setAlert(false);
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   const getItem = props.shoes.find((a) => {
-    return a.id == id;
+    return String(a.id) === String(id);
   });
+
   return (
     <div className="container">
+      {alert === true ? <div className="alert alert-warning">2초이내 구매시 할인 남은시간</div> : null}
+
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        안녕
+      </button>
       <Box>
         <YelloBtn color="blue">버튼</YelloBtn>
         <YelloBtn color="orange">버튼</YelloBtn>
