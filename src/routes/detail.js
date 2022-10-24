@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import { Nav } from "react-bootstrap";
+import { Context1 } from "../App.js";
 
 const YelloBtn = styled.button`
   background: ${(props) => props.color};
@@ -16,6 +17,8 @@ const Box = styled.div`
 `;
 
 const DetailItem = (props) => {
+  const { a } = useContext(Context1);
+
   const { id } = useParams();
   const [count, setCount] = useState(0);
   const [alert, setAlert] = useState(true);
@@ -45,7 +48,6 @@ const DetailItem = (props) => {
   return (
     <div className={`container start ${detail}`}>
       {alert === true ? <div className="alert alert-warning">2초이내 구매시 할인 남은시간</div> : null}
-
       <button
         onClick={() => {
           setCount(count + 1);
@@ -85,12 +87,12 @@ const DetailItem = (props) => {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent tab={tab} />
+      <TabContent tab={tab} shoes={props.shoes} />
     </div>
   );
 };
 
-const TabContent = ({ tab }) => {
+const TabContent = ({ tab, shoes }) => {
   const [fade, setFade] = useState("");
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -104,7 +106,11 @@ const TabContent = ({ tab }) => {
   }, [tab]);
   return (
     <div className={`start ${fade}`}>
-      {[<div style={{ marginTop: "35px" }}>내용0</div>, <div style={{ marginTop: "35px" }}>내용1</div>, <div style={{ marginTop: "35px" }}>내용2</div>][tab]}
+      {
+        [<div style={{ marginTop: "35px" }}>{shoes[0].title}</div>, <div style={{ marginTop: "35px" }}></div>, <div style={{ marginTop: "35px" }}>내용2</div>][
+          tab
+        ]
+      }
     </div>
   );
 };
