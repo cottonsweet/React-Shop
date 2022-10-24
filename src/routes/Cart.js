@@ -1,8 +1,14 @@
 import { Table } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { changeName, changeCount } from "../store.js";
 
 const Cart = () => {
+  const state = useSelector((state) => state);
+  const data = state.cart;
+  const dispatch = useDispatch();
   return (
     <div>
+      {state.user} 의 장바구니
       <Table>
         <thead>
           <tr>
@@ -13,12 +19,25 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>안녕</td>
-            <td>안녕</td>
-            <td>안녕</td>
-          </tr>
+          {data.map((a, i) => {
+            return (
+              <tr key={i}>
+                <td>{data[i].id}</td>
+                <td>{data[i].name}</td>
+                <td>{data[i].count}</td>
+                <td>{data[i].desc}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      dispatch(changeCount());
+                    }}
+                  >
+                    +
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     </div>
