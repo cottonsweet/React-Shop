@@ -17,7 +17,7 @@ const Box = styled.div`
 `;
 
 const DetailItem = (props) => {
-  const { a } = useContext(Context1);
+  // const { a } = useContext(Context1);
 
   const { id } = useParams();
   const [count, setCount] = useState(0);

@@ -5,6 +5,7 @@ import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import data from "./data.js";
 import DetailItem from "./routes/detail.js";
 import axios from "axios";
+import Cart from "./routes/Cart.js";
 
 // 컨텍스트는 State의 보관함을 만들어주는 함수
 export const Context1 = createContext();
@@ -62,14 +63,9 @@ function App() {
           }
         />
 
-        <Route
-          path="/detail/:id"
-          element={
-            <Context1.Provider value={{ stock }}>
-              <DetailItem shoes={shoes} />
-            </Context1.Provider>
-          }
-        />
+        <Route path="/detail/:id" element={<DetailItem shoes={shoes} />} />
+
+        <Route path="/cart" element={<Cart />} />
 
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>멤버 !</div>} />
