@@ -4,6 +4,7 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import data from "./data.js";
 import DetailItem from "./routes/detail.js";
+import axios from "axios";
 
 function App() {
   const [shoes, setShoes] = useState(data);
@@ -33,31 +34,24 @@ function App() {
               <div className="main-bg"></div>
               <div className="container">
                 <div className="row">
-                  {/* <Itemlist shoes={shoes[0]} i={1}></Itemlist>;<Itemlist shoes={shoes[1]} i={2}></Itemlist>;<Itemlist shoes={shoes[2]} i={3}></Itemlist>; */}
                   {shoes.map((a, i) => {
                     return <Itemlist shoes={shoes[i]} link={i}></Itemlist>;
                   })}
                 </div>
                 <button
                   onClick={() => {
-                    let copy = [...shoes];
-                    console.log(copy);
-                    copy.sort((a, b) => {
-                      let x = a.title.toLowerCase;
-                      let y = b.title.toLowerCase;
-                      if (x < y) {
-                        return -1;
-                      }
-                      if (x > y) {
-                        return 1;
-                      }
-                      return 0;
+                    const URL = "https://codingapple1.github.io/shop/data2.json";
+                    axios.get(URL).then((result) => {
+                      const data = result.data;
+                      let copy = [...shoes, ...data];
+                      setShoes(copy);
                     });
-                    console.log(copy);
-                    setShoes(copy);
+                    axios.post("url", {
+                      name: "kim",
+                    });
                   }}
                 >
-                  상품 정렬
+                  버튼
                 </button>
               </div>
             </>
