@@ -20,6 +20,11 @@ const DetailItem = (props) => {
   const [count, setCount] = useState(0);
   const [alert, setAlert] = useState(true);
   const [tab, setTab] = useState(0);
+  const [detail, setDetail] = useState("");
+
+  const getItem = props.shoes.find((a) => {
+    return String(a.id) === String(id);
+  });
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -30,12 +35,15 @@ const DetailItem = (props) => {
     };
   }, []);
 
-  const getItem = props.shoes.find((a) => {
-    return String(a.id) === String(id);
-  });
+  useEffect(() => {
+    setDetail("end");
+    return () => {
+      setDetail("");
+    };
+  }, []);
 
   return (
-    <div className="container">
+    <div className={`container start ${detail}`}>
       {alert === true ? <div className="alert alert-warning">2초이내 구매시 할인 남은시간</div> : null}
 
       <button
@@ -83,7 +91,22 @@ const DetailItem = (props) => {
 };
 
 const TabContent = ({ tab }) => {
-  return [<div style={{ marginTop: "35px" }}>내용0</div>, <div style={{ marginTop: "35px" }}>내용1</div>, <div style={{ marginTop: "35px" }}>내용2</div>][tab];
+  const [fade, setFade] = useState("");
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFade("end");
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      setFade("");
+    };
+  }, [tab]);
+  return (
+    <div className={`start ${fade}`}>
+      {[<div style={{ marginTop: "35px" }}>내용0</div>, <div style={{ marginTop: "35px" }}>내용1</div>, <div style={{ marginTop: "35px" }}>내용2</div>][tab]}
+    </div>
+  );
 };
 
 export default DetailItem;
