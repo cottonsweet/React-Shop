@@ -6,6 +6,7 @@ const user = createSlice({
   reducers: {
     changeName(state) {
       state.name = "park";
+      console.log(state.name);
     },
     changeAge(state, action) {
       state.age += action.payload;

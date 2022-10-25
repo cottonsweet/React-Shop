@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Nav } from "react-bootstrap";
 import { Context1 } from "../App.js";
+import addItem from "../store.js";
+import { useDispatch } from "react-redux";
 
 const YelloBtn = styled.button`
   background: ${(props) => props.color};
@@ -24,6 +26,7 @@ const DetailItem = (props) => {
   const [alert, setAlert] = useState(true);
   const [tab, setTab] = useState(0);
   const [detail, setDetail] = useState("");
+  const dispatch = useDispatch();
 
   const getItem = props.shoes.find((a) => {
     return String(a.id) === String(id);
