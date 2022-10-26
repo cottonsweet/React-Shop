@@ -26,11 +26,18 @@ const DetailItem = (props) => {
   const [alert, setAlert] = useState(true);
   const [tab, setTab] = useState(0);
   const [detail, setDetail] = useState("");
-  const dispatch = useDispatch();
-
   const getItem = props.shoes.find((a) => {
     return String(a.id) === String(id);
   });
+
+  useEffect(() => {
+    let out = localStorage.getItem("watched");
+    out = JSON.parse(out);
+    out.push(getItem.id);
+    out = new Set(out);
+    out = Array.from(out);
+    localStorage.setItem("watched", JSON.stringify(out));
+  }, []);
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -70,6 +77,7 @@ const DetailItem = (props) => {
           <h4 className="pt-5">{getItem.title}</h4>
           <p>{getItem.content}</p>
           <p>{getItem.price}</p>
+
           <button className="btn btn-danger">주문하기</button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import "./App.css";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import data from "./data.js";
@@ -11,6 +11,15 @@ import Cart from "./routes/Cart.js";
 export const Context1 = createContext();
 
 function App() {
+  useEffect(() => {
+    const getItem = localStorage.getItem("watched");
+    if (getItem === null) {
+      localStorage.setItem("watched", JSON.stringify([]));
+      return;
+    }
+    return;
+  }, []);
+
   const [shoes, setShoes] = useState(data);
   const [stock] = useState([10, 11, 12]);
   const navigate = useNavigate();
